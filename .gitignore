@@ -39,3 +39,4 @@ out/
 ### Docker ###
 /db_data/
 /jenkins/
+/src/main/resources/application-mysql.properties
