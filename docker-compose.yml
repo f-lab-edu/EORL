@@ -1,0 +1,24 @@
+version: "1.0"
+#DB
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db_data:/var/lib/mysql
+    ports:
+          - "3308:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: eorl_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    volumes:
+      - ./jenkins:/var/jenkins_home
+    ports:
+      - "3309:8080"
+    restart: always
+    user : root
