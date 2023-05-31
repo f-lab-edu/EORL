@@ -21,14 +21,14 @@ import lombok.ToString;
 public class SocialMember {
 
     @Id
-    @Column(name = "member_id", length = 100)
+    @Column
     private int memberId;
 
     @Id
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    @Column(name = "social_login_id", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String socialLoginId;
 
     @Column(columnDefinition="DATETIME")

@@ -24,17 +24,17 @@ import lombok.ToString;
 public class Member {
 
     @Id
-    @Column(name = "member_id")
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int memberId;
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
-    @Column(name="name", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(name="password", nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String password;
 
 
@@ -44,10 +44,10 @@ public class Member {
     @Column(columnDefinition="DATETIME")
     private LocalDateTime modificationDatetime;
 
-    @Column(name="phone_number", length = 20)
+    @Column(length = 20)
     private String phoneNumber;
 
-    @Column(name="email_address", length = 100)
+    @Column(length = 100)
     private String emailAddress;
 
     @Column(columnDefinition="DATETIME")
