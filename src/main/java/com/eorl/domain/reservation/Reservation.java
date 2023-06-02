@@ -18,25 +18,21 @@ public class Reservation {
 
     @Id
     @Column(nullable = false)
-    private int reservationId;
+    private Long reservationId;
 
-    @Id
     @Column(nullable = false)
-    private int storeId;
+    private Long storeId;
 
-    @Id
     @Column(nullable = false)
-    private int memberId;
+    private Long memberId;
 
-    @Id
+    @Column
+    private int reservationGuestNumber;
+
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
 
-    @Id
-    @Column
-    private int reservationNumber;
 }

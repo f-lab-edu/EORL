@@ -18,31 +18,13 @@ public class ReservationMenu {
 
     @Id
     @Column(nullable = false)
-    private int reservationId;
+    private Long reservationId;
 
     @Id
     @Column(nullable = false)
-    private int menuId;
+    private Long menuId;
 
-    @Id
-    @Column(nullable = false)
-    private int storeId;
-
-    @Id
-    @Column(nullable = false)
-    private String menuStatus;
-
-    @Id
-    @Column(nullable = false)
-    private String menuName;
-
-    @Id
-    @Column
-    private int price;
-
-    @Id
-    @Column(length = 500)
-    private String menuImage;
+    private int menuCount;
 
     @Id
     @Column(columnDefinition = "DATETIME")

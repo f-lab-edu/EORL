@@ -18,41 +18,21 @@ public class ReservationMenuIngredient {
 
     @Id
     @Column(nullable = false)
-    private int menuIngredientId;
+    private Long menuIngredientId;
 
     @Id
     @Column(nullable = false)
-    private int reservationId;
+    private Long reservationId;
 
     @Id
     @Column(nullable = false)
-    private int menuId;
+    private Long menuId;
 
-    @Id
-    @Column(nullable = false)
-    private int storeId;
+    private int count;
 
-    @Id
-    @Column(nullable = false)
-    private String menuStatus;
-
-    @Id
-    @Column(nullable = false)
-    private String menuName;
-
-    @Id
-    @Column
-    private int price;
-
-    @Id
-    @Column(length = 500)
-    private String menuImage;
-
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
 

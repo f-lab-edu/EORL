@@ -1,6 +1,7 @@
 package com.eorl.domain.store;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,45 +18,35 @@ import lombok.ToString;
 public class StoreSetting {
 
     @Id
-    @Column
-    private int storeId;
+    private Long storeId;
 
-    @Id
     @Column(nullable = false)
     private int maxMemberPerReserve;
 
-    @Id
     @Column(nullable = false)
     private int enableTable;
 
-    @Id
-    @Column(nullable = false, length = 1)
-    private String menuSelectYn;
+    @Column(nullable = false)
+    @Convert(converter = org.hibernate.type.YesNoConverter.class) //encodes a boolean value as 'Y' or 'N'
+    private boolean menuSelectYn;
 
-    @Id
     @Column(nullable = false, length = 4)
     private String maxWaitingTime;
 
-    @Id
-    @Column(nullable = false, length = 1)
-    private String reserveYn;
+    @Column(nullable = false)
+    @Convert(converter = org.hibernate.type.YesNoConverter.class)
+    private boolean reserveYn;
 
-    @Id
     @Column(nullable = false, length = 4)
     private String startWaitingTime;
 
-    @Id
     @Column(nullable = false, length = 4)
     private String endWaitingTime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-     @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
-
-
 
 }

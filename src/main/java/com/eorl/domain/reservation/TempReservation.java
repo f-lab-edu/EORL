@@ -2,6 +2,8 @@ package com.eorl.domain.reservation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -18,21 +20,18 @@ public class TempReservation {
 
     @Id
     @Column(nullable = false)
-    private int reservationId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long reservationId;
 
-    @Id
     @Column(nullable = false)
-    private int storeId;
+    private Long storeId;
 
-    @Id
     @Column(nullable = false)
-    private int memberId;
+    private Long memberId;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
 }

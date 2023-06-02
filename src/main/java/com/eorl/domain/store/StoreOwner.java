@@ -18,13 +18,12 @@ public class StoreOwner {
 
     @Id
     @Column(nullable = false)
-    private int storeId;
+    private Long storeId;
 
     @Id
     @Column(nullable = false, length = 100)
-    private String memberId;
+    private Long memberId;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 }

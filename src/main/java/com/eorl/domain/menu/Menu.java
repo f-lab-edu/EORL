@@ -2,6 +2,8 @@ package com.eorl.domain.menu;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -18,33 +20,28 @@ public class Menu {
 
     @Id
     @Column(nullable = false)
-    private int menuId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long menuId;
 
-    @Id
     @Column(nullable = false)
-    private int storeId;
+    private Long storeId;
 
-    @Id
     @Column(nullable = false)
     private String menuStatus;
 
-    @Id
     @Column(nullable = false)
     private String menuName;
 
-    @Id
-    @Column
     private int price;
 
-    @Id
     @Column(length = 500)
-    private String menuImage;
+    private String menuImageUrl;
 
-    @Id
+
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-    @Id
+
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
 

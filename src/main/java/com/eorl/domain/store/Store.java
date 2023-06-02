@@ -2,12 +2,15 @@ package com.eorl.domain.store;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.locationtech.jts.geom.Point;
 
 @Entity
 @Table
@@ -17,50 +20,39 @@ import lombok.ToString;
 public class Store {
 
     @Id
-    @Column
-    private int storeId;
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long storeId;
 
-    @Id
     @Column(nullable = false, length = 500)
-    private String store_name;
+    private String storeName;
 
-    @Id
     @Column(nullable = false, length = 1)
-    private String store_status;
+    private String storeStatus;
 
-    @Id
     @Column(nullable = false, length = 10)
-    private String business_number;
+    private String businessNumber;
 
-    @Id
     @Column(nullable = false, length = 200)
-    private String address_main;
+    private String addressMain;
 
-    @Id
     @Column(length = 200)
-    private String address_detail;
+    private String addressDetail;
 
-    @Id
     @Column(length = 20)
-    private String phone_number;
+    private String phoneNumber;
 
-    @Id
     @Column(length = 500)
-    private String store_image;
+    private String storeImageUrl;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
-    private LocalDateTime registration_datetime;
+    private LocalDateTime registrationDatetime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
-    private LocalDateTime modification_datetime;
+    private LocalDateTime modificationDatetime;
 
-    @Id
-    @Column
-    private Float latitude;
+    //Point 형으로 변경
+    @Column(nullable = false, columnDefinition = "GEOMETRY")
+    private Point location;
 
-    @Id
-    @Column
-    private Float longitude;
 }
