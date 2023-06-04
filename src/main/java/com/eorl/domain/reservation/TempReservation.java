@@ -19,7 +19,6 @@ import lombok.ToString;
 public class TempReservation {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
@@ -28,6 +27,8 @@ public class TempReservation {
 
     @Column(nullable = false)
     private Long memberId;
+
+    private Integer reservationGuestCount;
 
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;

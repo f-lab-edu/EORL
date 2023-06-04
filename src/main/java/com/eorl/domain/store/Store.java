@@ -20,7 +20,6 @@ import org.locationtech.jts.geom.Point;
 public class Store {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storeId;
 

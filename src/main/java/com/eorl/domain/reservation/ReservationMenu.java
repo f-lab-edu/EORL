@@ -17,20 +17,17 @@ import lombok.ToString;
 public class ReservationMenu {
 
     @Id
-    @Column(nullable = false)
     private Long reservationId;
 
     @Id
-    @Column(nullable = false)
     private Long menuId;
 
+    @Column(nullable = false)
     private int menuCount;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;
 
-    @Id
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime modificationDatetime;
 

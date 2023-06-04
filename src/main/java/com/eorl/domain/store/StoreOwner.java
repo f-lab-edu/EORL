@@ -17,11 +17,9 @@ import lombok.ToString;
 public class StoreOwner {
 
     @Id
-    @Column(nullable = false)
     private Long storeId;
 
     @Id
-    @Column(nullable = false, length = 100)
     private Long memberId;
 
     @Column(columnDefinition = "DATETIME")

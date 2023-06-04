@@ -19,7 +19,6 @@ import lombok.ToString;
 public class MenuIngredient {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuIngredientId;
 

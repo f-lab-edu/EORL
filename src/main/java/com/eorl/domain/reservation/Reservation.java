@@ -17,7 +17,6 @@ import lombok.ToString;
 public class Reservation {
 
     @Id
-    @Column(nullable = false)
     private Long reservationId;
 
     @Column(nullable = false)
@@ -26,8 +25,7 @@ public class Reservation {
     @Column(nullable = false)
     private Long memberId;
 
-    @Column
-    private int reservationGuestNumber;
+    private Integer reservationGuestCount;
 
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime registrationDatetime;

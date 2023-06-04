@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,6 @@ import lombok.ToString;
 public class MenuIngredientDetail {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long menuIngredientDetailId;
 
@@ -35,7 +35,7 @@ public class MenuIngredientDetail {
     @Column(length = 100)
     private String detailName;
 
-    private int detailPrice;
+    private BigDecimal detailPrice;
 
     @Column(length = 500)
     private String menuImageUrl;
