@@ -65,7 +65,6 @@ public class Member extends BaseTimeEntity {
             String phoneNumber,
             String emailAddress) {
         this.memberId = memberId;
-        this.memberType = memberType;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;

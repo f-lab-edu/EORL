@@ -80,7 +80,7 @@ class MemberServiceImplTest {
         MemberUpdateForm memberUpdateForm = new MemberUpdateForm(member.getMemberId(), "배유연복제",
                 null, null, null);
         Member updateMember = new Member(memberUpdateForm.getMemberId(),
-                memberSaveForm.getMemberType(), memberSaveForm.getName(),
+                 memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
 
