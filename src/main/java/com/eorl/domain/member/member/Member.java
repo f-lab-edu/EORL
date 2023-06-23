@@ -46,7 +46,10 @@ public class Member extends BaseTimeEntity {
     @Column(columnDefinition="DATETIME")
     private LocalDateTime authenticationDatetime;
 
-    public Member(MemberType memberType, String name, String password, String phoneNumber,
+    public Member(MemberType memberType,
+            String name,
+            String password,
+            String phoneNumber,
             String emailAddress) {
         this.memberType = memberType;
         this.name = name;
@@ -55,8 +58,12 @@ public class Member extends BaseTimeEntity {
         this.emailAddress = emailAddress;
     }
 
-    public Member(int memberId, MemberType memberType, String name, String password,
-            String phoneNumber, String emailAddress) {
+    public Member(int memberId,
+            MemberType memberType,
+            String name,
+            String password,
+            String phoneNumber,
+            String emailAddress) {
         this.memberId = memberId;
         this.memberType = memberType;
         this.name = name;
