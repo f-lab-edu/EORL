@@ -1,11 +1,9 @@
-package com.eorl.domain;
+package com.eorl.domain.member.socialmember;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
@@ -37,9 +35,4 @@ public class SocialMember {
     @Column(columnDefinition="DATETIME")
     private LocalDateTime modificationDatetime;
 
-}
-enum SocialType{
-    GOOGLE,
-    APPLE,
-    NAVER
 }

@@ -1,0 +1,46 @@
+package com.eorl.repository;
+
+import com.eorl.domain.member.member.Member;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface MemberRepository extends JpaRepository<Member, Integer> {
+
+    Member findByMemberId(int memberId);
+
+    List<Member> findByPhoneNumber(String phoneNumber);
+
+    /**
+     * 회원기본정보 수정
+     *
+     * @param name
+     * @param password
+     * @param memberId
+     */
+    @Query("UPDATE Member m "
+            + "SET m.name=COALESCE(:name, m.name),"
+            + "m.password=COALESCE( :password,m.password)"
+            + "WHERE m.memberId = :memberId")
+    @Modifying(clearAutomatically = true)
+    int updateMemberByMemberId(@Param("name") String name, @Param("password") String password,
+            @Param("memberId") int memberId);
+
+    /**
+     * 회원 핸드폰번호 인증시 인증일자, 핸드폰번호 업데이트
+     * @param phoneNumber
+     * @param memberId
+     * @return
+     */
+    @Query("UPDATE Member m "
+            + "SET m.phoneNumber = :phoneNumber,"
+            + "m.authenticationDatetime = current_timestamp "
+            + "WHERE m.memberId = :memberId")
+    @Modifying(clearAutomatically = true)
+    int updateMemberAuthentication(@Param("phoneNumber") String phoneNumber, @Param("memberId") int memberId);
+
+
+}

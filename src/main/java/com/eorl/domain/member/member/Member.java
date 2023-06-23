@@ -1,5 +1,6 @@
-package com.eorl.domain;
+package com.eorl.domain.member.member;
 
+import com.eorl.domain.common.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,10 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.time.LocalDateTime;
-import java.util.Date;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,7 +20,8 @@ import lombok.ToString;
 @Getter
 @ToString(exclude = "password")
 @NoArgsConstructor
-public class Member {
+@AllArgsConstructor
+public class Member extends BaseTimeEntity {
 
     @Id
     @Column
@@ -37,13 +37,6 @@ public class Member {
     @Column(nullable = false, length = 100)
     private String password;
 
-
-    @Column(columnDefinition="DATETIME")
-    private LocalDateTime registrationDatetime;
-
-    @Column(columnDefinition="DATETIME")
-    private LocalDateTime modificationDatetime;
-
     @Column(length = 20)
     private String phoneNumber;
 
@@ -53,9 +46,25 @@ public class Member {
     @Column(columnDefinition="DATETIME")
     private LocalDateTime authenticationDatetime;
 
-
-    public Member(MemberType memberType, String name, String password, String phoneNumber,
+    public Member(MemberType memberType,
+            String name,
+            String password,
+            String phoneNumber,
             String emailAddress) {
+        this.memberType = memberType;
+        this.name = name;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+    }
+
+    public Member(int memberId,
+            MemberType memberType,
+            String name,
+            String password,
+            String phoneNumber,
+            String emailAddress) {
+        this.memberId = memberId;
         this.memberType = memberType;
         this.name = name;
         this.password = password;
@@ -64,7 +73,3 @@ public class Member {
     }
 }
 
-enum MemberType {
-    OWNER,
-    CLIENT
-}
