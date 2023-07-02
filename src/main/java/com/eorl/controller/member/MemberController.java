@@ -2,6 +2,7 @@ package com.eorl.controller.member;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
+import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
 import com.eorl.service.MemberService;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,17 +34,11 @@ public class MemberController {
      * 회원가입
      *
      * @param memberSaveForm
-     * @param bindingResult
      * @return
      */
     @PostMapping
-    public Member createMember(@Valid @RequestBody(required = true) MemberSaveForm memberSaveForm,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException(bindingResult.getAllErrors().toString());
-        }
-
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+    public Object createMember(@RequestBody @Valid MemberSaveForm memberSaveForm ) {
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         return memberService.joinMember(member);
@@ -73,8 +69,7 @@ public class MemberController {
      * @return
      */
     @PatchMapping
-    public Member updateMember(@RequestBody(required = true) MemberUpdateForm memberUpdateForm) {
-
+    public Member updateMember(@RequestBody @Valid MemberUpdateForm memberUpdateForm) {
         if (memberService.findByMemberId(memberUpdateForm.getMemberId()) == null) {
             throw new NoSuchElementException("수정하려는 아이디가 존재하지 않습니다.");
         }
@@ -90,15 +85,15 @@ public class MemberController {
      * 회원 핸드폰번호 인증
      */
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @PatchMapping("/memberId/{memberId}")
-    public void updateMemberAuthentication(@PathVariable int memberId,  @RequestBody String phoneNumber) {
+    @PatchMapping("/authentication/{memberId}")
+    public void updateMemberAuthentication(@PathVariable int memberId,  @RequestParam String phoneNumber) {
 
         if (memberService.findByMemberId(memberId) == null) {
             throw new NoSuchElementException("수정하려는 아이디가 존재하지 않습니다.");
         }
 
         memberService.updateMemberAuthentication(phoneNumber, memberId);
-        //해당 컨트롤러 이제 테스트 진행하면됨!
+
     }
 
     /**
@@ -108,12 +103,13 @@ public class MemberController {
      * @return
      */
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @DeleteMapping("/memberId/{memberId}")
+    @DeleteMapping("/{memberId}")
     public void deleteMember(@PathVariable int memberId) {
 
         if (memberService.findByMemberId(memberId) == null) {
             throw new NoSuchElementException("삭제하려는 아이디가 존재하지 않습니다.");
         }
+        memberService.deleteMember(memberId);
 
     }
 

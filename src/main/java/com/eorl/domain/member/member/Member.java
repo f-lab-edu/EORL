@@ -59,7 +59,6 @@ public class Member extends BaseTimeEntity {
     }
 
     public Member(int memberId,
-            MemberType memberType,
             String name,
             String password,
             String phoneNumber,

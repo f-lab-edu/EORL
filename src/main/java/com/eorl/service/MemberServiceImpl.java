@@ -32,6 +32,9 @@ public class MemberServiceImpl implements  MemberService {
 
     @Override
     public int updateMember(Member member) {
+        log.debug("memberId ::: "+member.getMemberId());
+        log.debug("getPassword ::: "+member.getPassword());
+        log.debug("getName ::: "+member.getName());
         return memberRepository.updateMemberByMemberId(member.getName(), member.getPassword(),
                  member.getMemberId());
     }

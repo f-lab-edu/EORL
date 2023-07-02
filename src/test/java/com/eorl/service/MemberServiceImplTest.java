@@ -27,10 +27,10 @@ class MemberServiceImplTest {
     @DisplayName("회원가입 테스트")
     void memberJoin() {
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         //when
@@ -44,18 +44,18 @@ class MemberServiceImplTest {
     @DisplayName("중복된 핸드폰번호로 가입하기")
     void duplicatePhoneNumberJoin(){
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
         //when
-        MemberSaveForm memberSaveForm2 = new MemberSaveForm(MemberType.CLIENT, "배유연폰번호중복", "1234",
+        MemberSaveForm memberSaveForm2 = new MemberSaveForm("CLIENT", "배유연폰번호중복", "1234",
                 "01085554444",
                 "ccc@naver.com");
-        Member duplicatedMember = new Member(memberSaveForm2.getMemberType(), memberSaveForm2.getName(),
+        Member duplicatedMember = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm2.getName(),
                 memberSaveForm2.getPassword(), memberSaveForm2.getPhoneNumber(),
                 memberSaveForm2.getEmailAddress());
 
@@ -69,10 +69,10 @@ class MemberServiceImplTest {
     void memberUpdate() {
 
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
@@ -94,9 +94,9 @@ class MemberServiceImplTest {
     @DisplayName("회원 핸드폰번호 인증 테스트")
     void updateMemberAuthentication() {
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234", "",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
@@ -115,9 +115,9 @@ class MemberServiceImplTest {
     @DisplayName("회원탈퇴")
     void deleteMember(){
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234", "",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
-        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
+        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);

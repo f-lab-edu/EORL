@@ -1,8 +1,10 @@
 package com.eorl.domain.member.member;
 
+import com.eorl.domain.common.validator.EnumValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -14,8 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberSaveForm {
 
-    @NotBlank @NotEmpty(message="memberType은 필수 입니다.")
-    private MemberType memberType;
+    //@NotNull(message="memberType은 필수 입니다.")
+    @EnumValue(enumClass = MemberType.class, message = "유효하지 않은 멤버타입입니다.", ignoreCase = true)
+    private String memberType;
 
     @NotBlank @NotEmpty(message="name은 필수 입니다.")
     private String name;
@@ -31,7 +34,7 @@ public class MemberSaveForm {
 
     private LocalDateTime authenticationDatetime;
 
-    public MemberSaveForm(MemberType memberType, String name, String password, String phoneNumber,
+    public MemberSaveForm(String memberType, String name, String password, String phoneNumber,
             String emailAddress) {
         this.memberType = memberType;
         this.name = name;
