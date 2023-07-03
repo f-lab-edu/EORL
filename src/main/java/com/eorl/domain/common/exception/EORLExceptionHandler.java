@@ -1,10 +1,12 @@
 package com.eorl.domain.common.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,6 +21,11 @@ public class EORLExceptionHandler {
     protected ErrorResult handleException(MethodArgumentNotValidException e) {
         return new ErrorResult("BAD_REQUEST", e.getFieldError().getDefaultMessage());
     }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ErrorResult constraintViolationException(ConstraintViolationException e) {
+        return new ErrorResult("BAD_REQUEST", e.getMessage());
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
@@ -26,6 +33,14 @@ public class EORLExceptionHandler {
         log.error("[exceptionHandle] ex", e);
         return new ErrorResult("BAD_REQUEST", e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ErrorResult missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        log.error("[exceptionHandle] ex", e);
+        return new ErrorResult("BAD_REQUEST", e.getMessage());
+    }
+
 
     //404
     @ResponseStatus(HttpStatus.NOT_FOUND)

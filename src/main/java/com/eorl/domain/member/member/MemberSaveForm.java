@@ -16,8 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberSaveForm {
 
-    //@NotNull(message="memberType은 필수 입니다.")
-    @EnumValue(enumClass = MemberType.class, message = "유효하지 않은 멤버타입입니다.", ignoreCase = true)
+    @EnumValue(enumClass = MemberType.class, message = "유효하지 않은 멤버타입입니다.")
     private String memberType;
 
     @NotBlank @NotEmpty(message="name은 필수 입니다.")

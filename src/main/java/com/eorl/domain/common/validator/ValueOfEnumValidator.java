@@ -14,6 +14,9 @@ public class ValueOfEnumValidator implements ConstraintValidator<EnumValue, Stri
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if(value==null || value.isBlank()){
+            return false;
+        }
         boolean result = false;
         Enum<?>[] enumValues = this.enumValue.enumClass().getEnumConstants();
         if (enumValues != null) {
