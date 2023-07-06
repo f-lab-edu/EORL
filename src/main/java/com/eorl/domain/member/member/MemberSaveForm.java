@@ -19,6 +19,10 @@ public class MemberSaveForm {
     @EnumValue(enumClass = MemberType.class, message = "유효하지 않은 멤버타입입니다.")
     private String memberType;
 
+    public MemberType getMemberType() {
+        return MemberType.valueOf(memberType);
+    }
+
     @NotBlank @NotEmpty(message="name은 필수 입니다.")
     private String name;
 

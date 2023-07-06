@@ -19,7 +19,7 @@ public class MemberServiceImpl implements  MemberService {
     @Override
     public Member joinMember(Member member) {
         //이미 해당 핸드폰번호로 등록한 유저이면 가입 불가.
-        if (memberRepository.findByPhoneNumber(member.getPhoneNumber()).size() > 0) {
+        if (member.getPhoneNumber()!=null && memberRepository.findByPhoneNumber(member.getPhoneNumber()).size() > 0) {
             throw new DuplicateKeyException(member.getPhoneNumber()+"는 가입된 핸드폰번호입니다.");
         }
         memberRepository.save(member);

@@ -6,6 +6,7 @@ import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
 import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ class MemberServiceImplTest {
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         //when
@@ -47,7 +48,7 @@ class MemberServiceImplTest {
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
@@ -55,7 +56,7 @@ class MemberServiceImplTest {
         MemberSaveForm memberSaveForm2 = new MemberSaveForm("CLIENT", "배유연폰번호중복", "1234",
                 "01085554444",
                 "ccc@naver.com");
-        Member duplicatedMember = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm2.getName(),
+        Member duplicatedMember = new Member(memberSaveForm.getMemberType(), memberSaveForm2.getName(),
                 memberSaveForm2.getPassword(), memberSaveForm2.getPhoneNumber(),
                 memberSaveForm2.getEmailAddress());
 
@@ -72,7 +73,7 @@ class MemberServiceImplTest {
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
@@ -96,7 +97,7 @@ class MemberServiceImplTest {
         //given
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
@@ -117,13 +118,15 @@ class MemberServiceImplTest {
         //given
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
         //when
         memberService.deleteMember(member.getMemberId());
         //then
-        assertThat(memberService.findByMemberId(member.getMemberId())).isEqualTo(null);
+        assertThrows(NoSuchElementException.class,
+                () -> memberService.findByMemberId(member.getMemberId()));
+
     }
 }

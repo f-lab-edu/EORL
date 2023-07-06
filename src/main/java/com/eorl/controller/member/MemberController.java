@@ -41,7 +41,7 @@ public class MemberController {
      */
     @PostMapping
     public Member createMember(@RequestBody @Valid MemberSaveForm memberSaveForm ) {
-        Member member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         return memberService.joinMember(member);
