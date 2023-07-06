@@ -2,6 +2,7 @@ package com.eorl.service;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.repository.MemberRepository;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,25 +28,46 @@ public class MemberServiceImpl implements  MemberService {
 
     @Override
     public Member findByMemberId(int memberId) {
-        return memberRepository.findByMemberId(memberId);
+        Member member = memberRepository.findByMemberId(memberId);
+        if (member == null) {
+            throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
+        }
+        return member;
     }
 
     @Override
     public int updateMember(Member member) {
-        log.debug("memberId ::: "+member.getMemberId());
-        log.debug("getPassword ::: "+member.getPassword());
-        log.debug("getName ::: "+member.getName());
-        return memberRepository.updateMemberByMemberId(member.getName(), member.getPassword(),
-                 member.getMemberId());
+        if (memberRepository.findByMemberId(member.getMemberId()) == null) {
+            throw new NoSuchElementException("아이디가 '" + member.getMemberId() + "' 멤버는 존재하지 않습니다.");
+        }
+
+        int result = memberRepository.updateMemberByMemberId(member.getName(), member.getPassword(),
+                member.getMemberId());
+        if (result != 1) {
+            throw new RuntimeException("업데이트 중 오류가 발생하였습니다.");
+        }
+        return result;
     }
 
     @Override
     public int updateMemberAuthentication(String phoneNumber, int memberId) {
-        return memberRepository.updateMemberAuthentication(phoneNumber, memberId);
+        if (memberRepository.findByMemberId(memberId) == null) {
+            throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
+        }
+        int result =  memberRepository.updateMemberAuthentication(phoneNumber, memberId);
+        if (result != 1) {
+            throw new RuntimeException("업데이트 중 오류가 발생하였습니다.");
+        }
+        return result;
     }
 
     @Override
     public void deleteMember(int memberId) {
+
+        if (memberRepository.findByMemberId(memberId) == null) {
+            throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
+        }
+
         memberRepository.deleteById(memberId);
     }
 }

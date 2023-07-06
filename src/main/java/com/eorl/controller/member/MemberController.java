@@ -55,11 +55,7 @@ public class MemberController {
      */
     @GetMapping("/{memberId}")
     public Member requestMemberById(@PathVariable int memberId) {
-        Member member = memberService.findByMemberId(memberId);
-        if (member == null) {
-            throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
-        }
-        return member;
+        return memberService.findByMemberId(memberId);
     }
 
 
@@ -71,9 +67,7 @@ public class MemberController {
      */
     @PatchMapping
     public Member updateMember(@RequestBody @Valid MemberUpdateForm memberUpdateForm) {
-        if (memberService.findByMemberId(memberUpdateForm.getMemberId()) == null) {
-            throw new NoSuchElementException("수정하려는 아이디가 존재하지 않습니다.");
-        }
+
         Member member = new Member(memberUpdateForm.getMemberId(), memberUpdateForm.getName(),
                 memberUpdateForm.getPassword(), memberUpdateForm.getPhoneNumber(),
                 memberUpdateForm.getEmailAddress());
@@ -90,10 +84,6 @@ public class MemberController {
     public void updateMemberAuthentication(@PathVariable int memberId
             , @RequestParam @Pattern(regexp = "^\\d+$", message = "phoneNumber은 숫자만 입력가능합니다.") String phoneNumber) {
 
-        if (memberService.findByMemberId(memberId) == null) {
-            throw new NoSuchElementException("수정하려는 아이디가 존재하지 않습니다.");
-        }
-
         memberService.updateMemberAuthentication(phoneNumber, memberId);
 
     }
@@ -108,9 +98,6 @@ public class MemberController {
     @DeleteMapping("/{memberId}")
     public void deleteMember(@PathVariable int memberId) {
 
-        if (memberService.findByMemberId(memberId) == null) {
-            throw new NoSuchElementException("삭제하려는 아이디가 존재하지 않습니다.");
-        }
         memberService.deleteMember(memberId);
 
     }
