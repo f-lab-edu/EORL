@@ -2,6 +2,7 @@ package com.eorl.domain.notification;
 
 import com.eorl.domain.common.validator.EnumValue;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class NotificationSaveForm {
 
-    @NotEmpty(message="sendMemberId은 필수 입니다.")
+    @NotNull(message="sendMemberId은 필수 입니다.")
     private Long sendMemberId;
 
-    @NotEmpty(message="receiveMemberId은 필수 입니다.")
+    @NotNull(message="receiveMemberId은 필수 입니다.")
     private Long receiveMemberId;
 
     private String notificationMsg;

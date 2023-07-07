@@ -4,4 +4,5 @@ public enum NotificationStatus {
     PENDING,
     COMPLETE,
     FAILURE;
+
 }
