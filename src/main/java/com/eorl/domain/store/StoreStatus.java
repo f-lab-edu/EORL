@@ -8,20 +8,20 @@ import lombok.ToString;
 @ToString
 public enum StoreStatus implements EnumData {
 
-    ACTIVE("1", "정상"),
-    UN_ACTIVE("2", "폐업"),
-    CLOSED("3", "휴업");
+    ACTIVE(1, "정상"),
+    UN_ACTIVE(2, "폐업"),
+    CLOSED(3, "휴업");
 
-    String code;
-    String title;
+    final int code;
+    final String title;
 
-    StoreStatus(String code, String title) {
+    StoreStatus(int code, String title) {
         this.code = code;
         this.title = title;
     }
 
     @Override
-    public String getCode() {
+    public int getCode() {
         return this.code;
     }
 
@@ -30,11 +30,10 @@ public enum StoreStatus implements EnumData {
         return this.title;
     }
 
-    public static StoreStatus getInstance(String code) {
+    public static StoreStatus valueOf(int code) {
         return Arrays.stream(StoreStatus.values())
-                .filter(s -> s.getCode().equals(code))
+                .filter(s -> s.getCode() == code)
                 .findAny()
-                .orElseThrow(()-> new NoSuchElementException());
+                .orElseThrow(NoSuchElementException::new);
     }
-
 }

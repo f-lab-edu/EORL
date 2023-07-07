@@ -8,34 +8,32 @@ import lombok.ToString;
 @ToString
 public enum MenuStatus implements EnumData {
 
+    ACTIVE(1, "제공"),
+    UN_ACTIVE(2, "미제공"),
+    DELETE(3, "삭제");
 
-    ACTiVE("1", "제공"),
-    UN_ACTIVE("2", "미제공"),
-    DELETE("3", "삭제");
+    final int code;
+    final String title;
 
-    String code;
-    String title;
-
-    MenuStatus(String code, String title) {
+    MenuStatus(int code, String title) {
         this.code = code;
         this.title = title;
     }
 
-
     @Override
-    public String getCode() {
-        return null;
+    public int getCode() {
+        return this.code;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return this.title;
     }
 
-    public static MenuStatus getInstance(String code) {
+    public static MenuStatus valueOf(int code) {
         return Arrays.stream(MenuStatus.values())
-                .filter(s -> s.getCode().equals(code))
+                .filter(s -> s.getCode() == code)
                 .findAny()
-                .orElseThrow(()-> new NoSuchElementException());
+                .orElseThrow(NoSuchElementException::new);
     }
 }
