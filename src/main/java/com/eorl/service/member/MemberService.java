@@ -1,4 +1,4 @@
-package com.eorl.service;
+package com.eorl.service.member;
 
 import com.eorl.domain.member.member.Member;
 import java.util.Optional;
@@ -7,11 +7,11 @@ public interface MemberService {
 
     Member joinMember(Member member);
 
-    Member findByMemberId(int memberId);
+    Member findByMemberId(Long memberId);
 
     int updateMember(Member member);
 
-    int updateMemberAuthentication(String phoneNumber, int memberId);
+    int updateMemberAuthentication(String phoneNumber, Long memberId);
 
-    void deleteMember(int memberId);
+    void deleteMember(Long memberId);
 }
