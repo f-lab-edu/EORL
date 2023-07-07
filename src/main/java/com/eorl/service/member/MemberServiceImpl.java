@@ -1,9 +1,8 @@
-package com.eorl.service;
+package com.eorl.service.member;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.repository.MemberRepository;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -27,7 +26,7 @@ public class MemberServiceImpl implements  MemberService {
     }
 
     @Override
-    public Member findByMemberId(int memberId) {
+    public Member findByMemberId(Long memberId) {
         Member member = memberRepository.findByMemberId(memberId);
         if (member == null) {
             throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
@@ -50,7 +49,7 @@ public class MemberServiceImpl implements  MemberService {
     }
 
     @Override
-    public int updateMemberAuthentication(String phoneNumber, int memberId) {
+    public int updateMemberAuthentication(String phoneNumber, Long memberId) {
         if (memberRepository.findByMemberId(memberId) == null) {
             throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");
         }
@@ -62,7 +61,7 @@ public class MemberServiceImpl implements  MemberService {
     }
 
     @Override
-    public void deleteMember(int memberId) {
+    public void deleteMember(Long memberId) {
 
         if (memberRepository.findByMemberId(memberId) == null) {
             throw new NoSuchElementException("아이디가 '" + memberId + "' 멤버는 존재하지 않습니다.");

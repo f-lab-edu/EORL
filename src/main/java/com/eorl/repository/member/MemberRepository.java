@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface MemberRepository extends JpaRepository<Member, Integer> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    Member findByMemberId(int memberId);
+    Member findByMemberId(Long memberId);
 
     List<Member> findByPhoneNumber(String phoneNumber);
 
@@ -25,11 +25,11 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE Member m "
-            + "SET m.name = COALESCE( :name , m.name),"
-            + "m.password = COALESCE( :password ,m.password)"
+            + "SET m.name=COALESCE( :name, m.name),"
+            + "m.password=COALESCE( :password, m.password)"
             + "WHERE m.memberId = :memberId")
     int updateMemberByMemberId(@Param("name") String name, @Param("password") String password,
-            @Param("memberId") int memberId);
+            @Param("memberId") Long memberId);
 
     /**
      * 회원 핸드폰번호 인증시 인증일자, 핸드폰번호 업데이트
@@ -43,7 +43,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
             + "WHERE m.memberId = :memberId")
     @Modifying(clearAutomatically = true)
     @Transactional
-    int updateMemberAuthentication(@Param("phoneNumber") String phoneNumber, @Param("memberId") int memberId);
+    int updateMemberAuthentication(@Param("phoneNumber") String phoneNumber, @Param("memberId") Long memberId);
 
 
 }
