@@ -2,8 +2,9 @@ package com.eorl.service.notification;
 
 import com.eorl.domain.notification.Notification;
 import com.eorl.domain.notification.NotificationStatus;
-import java.util.List;
 import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface NotificationService {
 
@@ -11,7 +12,7 @@ public interface NotificationService {
 
     Notification findByNotificationId(UUID notificationId);
 
-    List<Notification> findAllOrderByNotificationId();
+    Page<Notification> findAllOrderByNotificationId(Pageable pageable);
 
     int updateNotificationStatus(UUID notificationId, NotificationStatus notificationStatus);
 

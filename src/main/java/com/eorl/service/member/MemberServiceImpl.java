@@ -1,7 +1,7 @@
 package com.eorl.service.member;
 
 import com.eorl.domain.member.member.Member;
-import com.eorl.repository.MemberRepository;
+import com.eorl.repository.member.MemberRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

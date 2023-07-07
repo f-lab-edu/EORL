@@ -1,4 +1,4 @@
-package com.eorl.repository;
+package com.eorl.repository.member;
 
 import com.eorl.domain.member.member.Member;
 import java.util.List;
