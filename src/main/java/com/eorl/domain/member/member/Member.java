@@ -26,7 +26,7 @@ public class Member extends BaseTimeEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int memberId;
+    private Long memberId;
 
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
@@ -58,14 +58,12 @@ public class Member extends BaseTimeEntity {
         this.emailAddress = emailAddress;
     }
 
-    public Member(int memberId,
-            MemberType memberType,
+    public Member(Long memberId,
             String name,
             String password,
             String phoneNumber,
             String emailAddress) {
         this.memberId = memberId;
-        this.memberType = memberType;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;

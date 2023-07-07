@@ -20,7 +20,7 @@ public class SocialMember {
 
     @Id
     @Column
-    private int memberId;
+    private Long memberId;
 
     @Id
     @Enumerated(EnumType.STRING)

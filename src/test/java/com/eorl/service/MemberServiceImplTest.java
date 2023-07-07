@@ -4,8 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
-import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
+import com.eorl.service.member.MemberService;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ class MemberServiceImplTest {
     @DisplayName("회원가입 테스트")
     void memberJoin() {
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
@@ -44,7 +45,7 @@ class MemberServiceImplTest {
     @DisplayName("중복된 핸드폰번호로 가입하기")
     void duplicatePhoneNumberJoin(){
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
@@ -52,10 +53,10 @@ class MemberServiceImplTest {
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
         //when
-        MemberSaveForm memberSaveForm2 = new MemberSaveForm(MemberType.CLIENT, "배유연폰번호중복", "1234",
+        MemberSaveForm memberSaveForm2 = new MemberSaveForm("CLIENT", "배유연폰번호중복", "1234",
                 "01085554444",
                 "ccc@naver.com");
-        Member duplicatedMember = new Member(memberSaveForm2.getMemberType(), memberSaveForm2.getName(),
+        Member duplicatedMember = new Member(memberSaveForm.getMemberType(), memberSaveForm2.getName(),
                 memberSaveForm2.getPassword(), memberSaveForm2.getPhoneNumber(),
                 memberSaveForm2.getEmailAddress());
 
@@ -69,7 +70,7 @@ class MemberServiceImplTest {
     void memberUpdate() {
 
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
@@ -80,7 +81,7 @@ class MemberServiceImplTest {
         MemberUpdateForm memberUpdateForm = new MemberUpdateForm(member.getMemberId(), "배유연복제",
                 null, null, null);
         Member updateMember = new Member(memberUpdateForm.getMemberId(),
-                memberSaveForm.getMemberType(), memberSaveForm.getName(),
+                 memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
 
@@ -94,7 +95,7 @@ class MemberServiceImplTest {
     @DisplayName("회원 핸드폰번호 인증 테스트")
     void updateMemberAuthentication() {
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234", "",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
@@ -115,7 +116,7 @@ class MemberServiceImplTest {
     @DisplayName("회원탈퇴")
     void deleteMember(){
         //given
-        MemberSaveForm memberSaveForm = new MemberSaveForm(MemberType.CLIENT, "배유연", "1234", "",
+        MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
@@ -124,6 +125,8 @@ class MemberServiceImplTest {
         //when
         memberService.deleteMember(member.getMemberId());
         //then
-        assertThat(memberService.findByMemberId(member.getMemberId())).isEqualTo(null);
+        assertThrows(NoSuchElementException.class,
+                () -> memberService.findByMemberId(member.getMemberId()));
+
     }
 }
