@@ -1,6 +1,7 @@
 package com.eorl.repository.notification;
 
 import com.eorl.domain.notification.Notification;
+import com.eorl.domain.notification.NotificationStatus;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,6 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
             + "WHERE notificationId = :notificationId")
     @Modifying(clearAutomatically = true)
     @Transactional
-    int updateNotificationStatus(@Param("notificationStatus") String notificationStatus, @Param("notificationId") UUID notificationId);
+    int updateNotificationStatus(@Param("notificationStatus") NotificationStatus notificationStatus, @Param("notificationId") UUID notificationId);
 
 }
