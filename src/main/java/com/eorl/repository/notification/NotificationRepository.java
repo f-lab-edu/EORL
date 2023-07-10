@@ -17,6 +17,7 @@ public interface NotificationRepository extends JpaRepository<Notification, UUID
 
     Page<Notification> findAllByOrderByRegistrationDatetime(Pageable pageable);
 
+
     @Query("UPDATE Notification "
             + "SET notificationStatus = :notificationStatus "
             + "WHERE notificationId = :notificationId")
