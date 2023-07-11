@@ -14,6 +14,8 @@ public interface NotificationService {
 
     Page<Notification> findAllOrderByNotificationId(Pageable pageable);
 
+    Page<Notification> findAll(Notification notification, Pageable pageable);
+
     int updateNotificationStatus(UUID notificationId, NotificationStatus notificationStatus);
 
 }

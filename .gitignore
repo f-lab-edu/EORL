@@ -40,3 +40,4 @@ out/
 /db_data/
 /jenkins/
 /src/main/resources/application-mysql.properties
+/src/main/resources/application-rabbitmq.properties

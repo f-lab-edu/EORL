@@ -98,6 +98,36 @@ class NotificationServiceImplTest {
 
     }
     @Test
+    @DisplayName("pending 상태인 건만 조회 및 paging 처리 테스트")
+    void findAll(){
+        //given
+        for(int i=0; i<3; i++){
+            NotificationSaveForm notificationSaveForm = new NotificationSaveForm(member.getMemberId(), member.getMemberId()
+                    , "알람메시지 테스트", "NAVER", "PENDING");
+            Notification notification = new Notification(notificationSaveForm.getSendMemberId(), notificationSaveForm.getReceiveMemberId()
+                    , notificationSaveForm.getNotificationMsg(), notificationSaveForm.getNotificationKind()
+                    , notificationSaveForm.getNotificationStatus());
+            notificationService.registerNotification(notification);
+
+            NotificationSaveForm notificationSaveForm2 = new NotificationSaveForm(member.getMemberId(), member.getMemberId()
+                    , "알람메시지 테스트", "NAVER", "COMPLETE");
+            Notification notification2 = new Notification(notificationSaveForm2.getSendMemberId(), notificationSaveForm2.getReceiveMemberId()
+                    , notificationSaveForm2.getNotificationMsg(), notificationSaveForm2.getNotificationKind()
+                    , notificationSaveForm2.getNotificationStatus());
+            notificationService.registerNotification(notification2);
+        }
+
+        PageRequest pageable = PageRequest.of(0,10);
+        //when
+        Notification selectNotification = new Notification(null, null, null, null,
+                NotificationStatus.PENDING);
+
+        Page<Notification> allOrderByNotificationId = notificationService.findAll(selectNotification, pageable);
+
+        assertThat(allOrderByNotificationId.getTotalElements()).isEqualTo(3);
+
+    }
+    @Test
     @DisplayName("상태 전송완료로 업데이트하기.")
     void updateNotificationStatus(){
         //given

@@ -1,6 +1,7 @@
 package com.eorl.controller.rabbitMQ;
 
 import com.eorl.domain.notification.Notification;
+import com.eorl.domain.notification.NotificationStatus;
 import com.eorl.service.notification.NotificationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,16 @@ public class ProviderController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @GetMapping()
     public void providerMessage(Pageable pageable) {
-        Page<Notification> allNotification = notificationService.findAllOrderByNotificationId(
-                pageable);
+
+        //when
+        Notification selectNotification = new Notification(null, null, null, null,
+                NotificationStatus.PENDING);
+
+        Page<Notification> allNotification = notificationService.findAll(selectNotification, pageable);
+
         List<Notification> content = allNotification.getContent();
         for (Notification notification : content) {
-            rabbitTemplate.convertAndSend(EXCHANGE_NAME,ROUTING_KEY,notification);
+            rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, notification);
         }
 
     }

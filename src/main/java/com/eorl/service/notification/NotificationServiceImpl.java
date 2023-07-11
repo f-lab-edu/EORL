@@ -42,6 +42,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public Page<Notification> findAll(Notification notification, Pageable pageable) {
+        return notificationRepository.findAll(notification, pageable);
+    }
+
+    @Override
     public int updateNotificationStatus(UUID notificationId, NotificationStatus notificationStatus) {
         if (notificationRepository.findByNotificationId(notificationId) == null) {
             throw new NoSuchElementException("'" + notificationId + "' 라는 알림은 존재하지 않습니다.");
