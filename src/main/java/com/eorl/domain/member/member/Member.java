@@ -59,13 +59,11 @@ public class Member extends BaseTimeEntity {
     }
 
     public Member(int memberId,
-            MemberType memberType,
             String name,
             String password,
             String phoneNumber,
             String emailAddress) {
         this.memberId = memberId;
-        this.memberType = memberType;
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
