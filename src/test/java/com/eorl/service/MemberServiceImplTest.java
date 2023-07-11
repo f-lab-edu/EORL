@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
-import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
+import com.eorl.service.member.MemberService;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
