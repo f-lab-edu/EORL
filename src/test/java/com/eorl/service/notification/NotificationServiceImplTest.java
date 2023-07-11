@@ -105,7 +105,6 @@ class NotificationServiceImplTest {
                 pageable);
 
         assertThat(allOrderByNotificationId.getTotalElements()).isEqualTo(3);
-
     }
 
     @Test
