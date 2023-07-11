@@ -107,6 +107,7 @@ class NotificationServiceImplTest {
         assertThat(allOrderByNotificationId.getTotalElements()).isEqualTo(3);
     }
 
+    
     @Test
     @DisplayName("상태 전송완료로 업데이트하기.")
     void updateNotificationStatus() {
