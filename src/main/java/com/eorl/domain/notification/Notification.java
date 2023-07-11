@@ -12,7 +12,6 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "notification")
@@ -22,8 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Notification extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue
     @Column(columnDefinition = "BINARY(16)")
     private UUID notificationId;
 
@@ -44,7 +42,8 @@ public class Notification extends BaseTimeEntity {
     @Column(nullable = false)
     private NotificationStatus notificationStatus;
 
-    public Notification(Long sendMemberId, Long receiveMemberId, String notificationMsg, NotificationKind notificationKind,
+    public Notification(Long sendMemberId, Long receiveMemberId, String notificationMsg,
+            NotificationKind notificationKind,
             NotificationStatus notificationStatus) {
         this.sendMemberId = sendMemberId;
         this.receiveMemberId = receiveMemberId;

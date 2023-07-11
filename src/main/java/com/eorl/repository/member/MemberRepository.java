@@ -2,7 +2,6 @@ package com.eorl.repository.member;
 
 import com.eorl.domain.member.member.Member;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,14 +24,15 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE Member m "
-            + "SET m.name=COALESCE( :name, m.name),"
-            + "m.password=COALESCE( :password, m.password)"
+            + "SET m.name=COALESCE(:name, m.name),"
+            + "m.password=COALESCE(:password, m.password)"
             + "WHERE m.memberId = :memberId")
     int updateMemberByMemberId(@Param("name") String name, @Param("password") String password,
             @Param("memberId") Long memberId);
 
     /**
      * 회원 핸드폰번호 인증시 인증일자, 핸드폰번호 업데이트
+     *
      * @param phoneNumber
      * @param memberId
      * @return
@@ -43,7 +43,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             + "WHERE m.memberId = :memberId")
     @Modifying(clearAutomatically = true)
     @Transactional
-    int updateMemberAuthentication(@Param("phoneNumber") String phoneNumber, @Param("memberId") Long memberId);
+    int updateMemberAuthentication(@Param("phoneNumber") String phoneNumber,
+            @Param("memberId") Long memberId);
 
 
 }
