@@ -4,7 +4,6 @@ import com.eorl.domain.common.validator.EnumValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -24,20 +23,23 @@ public class MemberSaveForm {
         return MemberType.valueOf(memberType);
     }
 
-    @NotBlank @NotEmpty(message="name은 필수 입니다.")
-    @Length(max=100)
+    @NotBlank
+    @NotEmpty(message = "name은 필수 입니다.")
+    @Length(max = 100)
     private String name;
 
-    @NotBlank @NotEmpty(message="password은 필수 입니다.")
-    @Length(max=100)
+    @NotBlank
+    @NotEmpty(message = "password은 필수 입니다.")
+    @Length(max = 100)
     private String password;
 
     @Pattern(regexp = "^\\d+$", message = "phoneNumber은 숫자만 입력가능합니다.")
-    @Length(max=20)
+    @Length(max = 20)
     private String phoneNumber;
 
+
     @Email
-    @Length(max=100)
+    @Length(max = 100)
     private String emailAddress;
 
     private LocalDateTime authenticationDatetime;
