@@ -24,8 +24,8 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE Member m "
-            + "SET m.name = COALESCE(:name , m.name),"
-            + "m.password = COALESCE(:password ,m.password)"
+            + "SET m.name = COALESCE(:name, m.name),"
+            + "m.password = COALESCE(:password, m.password)"
             + "WHERE m.memberId = :memberId")
     int updateMemberByMemberId(@Param("name") String name, @Param("password") String password,
             @Param("memberId") int memberId);
