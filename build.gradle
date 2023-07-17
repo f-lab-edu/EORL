@@ -33,6 +33,9 @@ dependencies {
 	//자바 역직렬화 문제 해결 패키지
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+	//카카오 api 응답값 파싱을 위한 의존성 추가
+	implementation group: 'org.json', name: 'json', version: '20210307'
 }
 
 tasks.named('test') {
