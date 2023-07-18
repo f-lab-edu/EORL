@@ -1,0 +1,3 @@
+[submodule "EORL-secure-submodule"]
+	path = EORL-secure-submodule
+	url = https://github.com/f-lab-edu/EORL-secure-submodule.git
