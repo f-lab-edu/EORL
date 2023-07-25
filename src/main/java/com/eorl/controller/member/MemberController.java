@@ -2,17 +2,12 @@ package com.eorl.controller.member;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
-import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
-import com.eorl.service.MemberService;
+import com.eorl.service.member.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +35,7 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public Member createMember(@RequestBody @Valid MemberSaveForm memberSaveForm ) {
+    public Member createMember(@RequestBody @Valid MemberSaveForm memberSaveForm) {
         Member member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
@@ -54,7 +49,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/{memberId}")
-    public Member requestMemberById(@PathVariable int memberId) {
+    public Member requestMemberById(@PathVariable Long memberId) {
         return memberService.findByMemberId(memberId);
     }
 
@@ -81,8 +76,9 @@ public class MemberController {
      */
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PatchMapping("/authentication/{memberId}")
-    public void updateMemberAuthentication(@PathVariable int memberId
-            , @RequestParam @Pattern(regexp = "^\\d+$", message = "phoneNumber은 숫자만 입력가능합니다.") String phoneNumber) {
+    public void updateMemberAuthentication(@PathVariable Long memberId
+            ,
+            @RequestParam @Pattern(regexp = "^\\d+$", message = "phoneNumber은 숫자만 입력가능합니다.") String phoneNumber) {
 
         memberService.updateMemberAuthentication(phoneNumber, memberId);
 
@@ -96,7 +92,7 @@ public class MemberController {
      */
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping("/{memberId}")
-    public void deleteMember(@PathVariable int memberId) {
+    public void deleteMember(@PathVariable Long memberId) {
 
         memberService.deleteMember(memberId);
 

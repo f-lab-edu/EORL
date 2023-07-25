@@ -1,10 +1,10 @@
-package com.eorl.service;
+package com.eorl.service.member;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
-import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.member.member.MemberUpdateForm;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
@@ -13,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -43,7 +40,7 @@ class MemberServiceImplTest {
 
     @Test
     @DisplayName("중복된 핸드폰번호로 가입하기")
-    void duplicatePhoneNumberJoin(){
+    void duplicatePhoneNumberJoin() {
         //given
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
@@ -56,7 +53,8 @@ class MemberServiceImplTest {
         MemberSaveForm memberSaveForm2 = new MemberSaveForm("CLIENT", "배유연폰번호중복", "1234",
                 "01085554444",
                 "ccc@naver.com");
-        Member duplicatedMember = new Member(memberSaveForm.getMemberType(), memberSaveForm2.getName(),
+        Member duplicatedMember = new Member(memberSaveForm.getMemberType(),
+                memberSaveForm2.getName(),
                 memberSaveForm2.getPassword(), memberSaveForm2.getPhoneNumber(),
                 memberSaveForm2.getEmailAddress());
 
@@ -81,7 +79,7 @@ class MemberServiceImplTest {
         MemberUpdateForm memberUpdateForm = new MemberUpdateForm(member.getMemberId(), "배유연복제",
                 null, null, null);
         Member updateMember = new Member(memberUpdateForm.getMemberId(),
-                 memberSaveForm.getName(),
+                memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
 
@@ -114,7 +112,7 @@ class MemberServiceImplTest {
 
     @Test
     @DisplayName("회원탈퇴")
-    void deleteMember(){
+    void deleteMember() {
         //given
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234", "",
                 "ddd@maver.com");

@@ -1,14 +1,11 @@
 package com.eorl.service.reservation;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.domain.member.member.MemberSaveForm;
-import com.eorl.domain.member.member.MemberType;
 import com.eorl.domain.reservation.temp.TempReservation;
 import com.eorl.domain.reservation.temp.TempReservationSaveForm;
-import com.eorl.domain.store.Store;
 import com.eorl.service.member.MemberService;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,16 +24,18 @@ class TempReservationServiceImplTest {
     @Autowired
     TempReservationService tempReservationService;
     Member member = null;
+
     @BeforeEach
-    void before(){
+    void before() {
         MemberSaveForm memberSaveForm = new MemberSaveForm("CLIENT", "배유연", "1234",
                 "01085554444",
                 "ddd@maver.com");
-        member = new Member(MemberType.valueOf(memberSaveForm.getMemberType()), memberSaveForm.getName(),
+        member = new Member(memberSaveForm.getMemberType(), memberSaveForm.getName(),
                 memberSaveForm.getPassword(), memberSaveForm.getPhoneNumber(),
                 memberSaveForm.getEmailAddress());
         memberService.joinMember(member);
     }
+
     @Test
     @DisplayName("예약 신청 테스트")
     void applyReservation() {
@@ -50,8 +49,10 @@ class TempReservationServiceImplTest {
         tempReservationService.applyReservation(tempReservation);
 
         //then
-        TempReservation findTempReservation = tempReservationService.findByReservationId(tempReservation.getReservationId());
-        assertThat(tempReservation.getReservationId()).isEqualTo(findTempReservation.getReservationId());
+        TempReservation findTempReservation = tempReservationService.findByReservationId(
+                tempReservation.getReservationId());
+        assertThat(tempReservation.getReservationId()).isEqualTo(
+                findTempReservation.getReservationId());
     }
 
     @Test
@@ -60,8 +61,9 @@ class TempReservationServiceImplTest {
         TempReservationSaveForm tempReservationSaveForm = new TempReservationSaveForm(1L,
                 member.getMemberId(), 3);
 
-        for(int i=0; i<3; i++){
-            TempReservation tempReservation = new TempReservation(tempReservationSaveForm.getStoreId()
+        for (int i = 0; i < 3; i++) {
+            TempReservation tempReservation = new TempReservation(
+                    tempReservationSaveForm.getStoreId()
                     , tempReservationSaveForm.getMemberId(),
                     tempReservationSaveForm.getReservationGuestCount());
             tempReservationService.applyReservation(tempReservation);
@@ -78,8 +80,9 @@ class TempReservationServiceImplTest {
         TempReservationSaveForm tempReservationSaveForm = new TempReservationSaveForm(1L,
                 member.getMemberId(), 3);
 
-        for(int i=0; i<4; i++){
-            TempReservation tempReservation = new TempReservation(tempReservationSaveForm.getStoreId()
+        for (int i = 0; i < 4; i++) {
+            TempReservation tempReservation = new TempReservation(
+                    tempReservationSaveForm.getStoreId()
                     , tempReservationSaveForm.getMemberId(),
                     tempReservationSaveForm.getReservationGuestCount());
             tempReservationService.applyReservation(tempReservation);
@@ -104,7 +107,8 @@ class TempReservationServiceImplTest {
         tempReservationService.deleteTempReservation(tempReservation.getReservationId());
 
         //then
-        assertThat(tempReservationService.findByReservationId(tempReservation.getReservationId())).isEqualTo(null);
+        assertThat(tempReservationService.findByReservationId(
+                tempReservation.getReservationId())).isEqualTo(null);
 
     }
 }

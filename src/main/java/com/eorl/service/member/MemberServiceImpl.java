@@ -1,8 +1,8 @@
-package com.eorl.service;
+package com.eorl.service.member;
 
 import com.eorl.domain.member.member.Member;
 import com.eorl.repository.MemberRepository;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 //@Service
 @Component
 @RequiredArgsConstructor
-public class MemberServiceImpl implements  MemberService {
+public class MemberServiceImpl implements MemberService {
+
     private final MemberRepository memberRepository;
 
     @Override
