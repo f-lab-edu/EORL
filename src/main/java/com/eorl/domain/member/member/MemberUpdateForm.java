@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
 public class MemberUpdateForm {
 
     @NotNull(message="memberId는 필수입니다.")
-    private int memberId;
+    private Long memberId;
     @NotNull(message="name은 필수입니다.")
     private String name;
 
@@ -35,7 +35,7 @@ public class MemberUpdateForm {
 
     private LocalDateTime authenticationDatetime;
 
-    public MemberUpdateForm(int memberId, String name, String password, String phoneNumber,
+    public MemberUpdateForm(Long memberId, String name, String password, String phoneNumber,
             String emailAddress) {
         this.memberId = memberId;
         this.name = name;
